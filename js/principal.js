@@ -45,7 +45,37 @@ for (var i=0; i<pacientes.length; i++){
 var botaoAdicionar = document.querySelector("#adicionar-paciente");
 
 botaoAdicionar.addEventListener("click", function(){
-    event.preventDefault();
-    console.log("Oie, cliquei no botão.");
-})
+    event.preventDefault();//tira o padrão do evento
+    
+
+    var form = document.querySelector("#form-adiciona");
+
+    var nome = form.nome.value; 
+    var peso = form.peso.value; //acesaando através da prop name = "peso"
+    var altura = form.altura.value;
+    var gordura = form.gordura.value;
+
+    var pacienteTr= document.createElement("tr");
+    
+    var nomeTd = document.createElement("td");//cria as colunas
+    var pesoTd = document.createElement("td");
+    var alturaTd =document.createElement("td");
+    var gorduraTd =document.createElement("td");
+
+    nomeTd.textContent=nome;//add dados do inseridos no form nas colunas
+    pesoTd.textContent=peso;
+    alturaTd.textContent=altura;
+    gorduraTd.textContent=gordura;
+
+    pacienteTr.appendChild(nomeTd);//vai add coluna dos dados a linha dum paciente
+    pacienteTr.appendChild(pesoTd);
+    pacienteTr.appendChild(alturaTd);
+    pacienteTr.appendChild(gorduraTd);
+
+    var tabela = document.querySelector("#tabela-pacientes");
+
+    tabela.appendChild(pacienteTr); //add o paciente a tabela
+
+
+});
 
