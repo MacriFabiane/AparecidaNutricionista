@@ -13,6 +13,15 @@ botaoAdicionar.addEventListener("click", function(){
     //Criar a tr e a td do paciente
     var pacienteTr = montarTr(paciente);
 
+    //verifica se paciente é válido
+    var erro = validaPaciente(paciente);
+
+    if(erro.length >0){
+        var mensagemErro= document.querySelector("#mensagem-erro");
+        mensagemErro.textContent = erro;
+        return;
+    }
+
     //Adicionando paciente na tabela
     var tabela = document.querySelector("#tabela-pacientes");
 
@@ -65,5 +74,21 @@ function montarTd(dado, classe){
     td.textContent=dado;//add dados do inseridos no form nas colunas
 
     return td;
+}
+
+function validaPaciente(paciente){
+    if(validaAltura(paciente.altura)){
+        return "";
+    }
+    else{
+        return "A Altura é inválida!";
+    }
+    if(validaPeso(paciente.peso)){
+        return "";
+    }
+    else
+    {
+        return "O peso é inválido!"; //vamos estrair essa mensagem pra uma var erro e se o tam da string for>0 então há erros
+    }
 }
 
