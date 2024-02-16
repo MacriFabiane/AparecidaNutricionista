@@ -3,22 +3,20 @@ var botaoAdicionar = document.querySelector("#adicionar-paciente");
 botaoAdicionar.addEventListener("click", function(){
     event.preventDefault();//tira o padrão do evento
     
-
     var form = document.querySelector("#form-adiciona");
 
     //Extraindo uma informações do paciente do form
     var paciente = obtemPacienteDoFormulario(form);
-    console.log(paciente);
 
     //Criar a tr e a td do paciente
     var pacienteTr = montarTr(paciente);
 
     //verifica se paciente é válido
-    var erro = validaPaciente(paciente);
+    var erros = validaPaciente(paciente);
+    console.log(erros);
 
-    if(erro.length >0){
-        var mensagemErro= document.querySelector("#mensagem-erro");
-        mensagemErro.textContent = erro;
+    if(erros.length >0){
+        exibeMensagensDeErro(erros);
         return;
     }
 
@@ -29,7 +27,20 @@ botaoAdicionar.addEventListener("click", function(){
 
     form.reset();//limpa o form depois de inserir um paciente
 
+    var mensagemErro =document.querySelector("#mensagens-erro");
+    mensagemErro.innerHTML =""; //vai apagar os erros quando um paciente for add
 });
+
+function exibeMensagensDeErro(erros){
+    var ul= document.querySelector("#mensagens-erro");
+    ul.innerHTML= "";//innerHTML permite controlar conteúdo interno Html de um elemento, assim removemos todo conteudo html
+
+    erros.forEach(function(erro){
+        var li =document.createElement("li");
+        li.textContent=erro;
+        ul.appendChild(li);
+    });
+}
 
 function obtemPacienteDoFormulario(form){
     var paciente ={//criando um objeto em js
@@ -77,18 +88,34 @@ function montarTd(dado, classe){
 }
 
 function validaPaciente(paciente){
-    if(validaAltura(paciente.altura)){
-        return "";
+    var erros = [];
+
+    if(!validaAltura(paciente.altura)){
+        erros.push( "A Altura é inválida!");//push coloca no array
     }
-    else{
-        return "A Altura é inválida!";
+
+    if(!validaPeso(paciente.peso)){
+        erros.push("O peso é inválido!"); //vamos estrair essa mensagem pra uma var erro e se o tam da string for>0 então há erros
     }
-    if(validaPeso(paciente.peso)){
-        return "";
+
+    if(paciente.nome.length == 0){
+        erros.push("Paciente sem nome!");
     }
-    else
-    {
-        return "O peso é inválido!"; //vamos estrair essa mensagem pra uma var erro e se o tam da string for>0 então há erros
+
+    if(paciente.gordura.length == 0){
+        erros.push("O campo gordura está em branco!");
     }
+
+    if(paciente.peso.length == 0){
+        erros.push("O campo peso está em branco!");
+    }
+
+    if(paciente.altura.length == 0){
+        erros.push("O campo altura está em branco!");
+    }
+
+    return erros;
 }
+
+
 
