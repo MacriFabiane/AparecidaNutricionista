@@ -37,45 +37,14 @@ for (var i=0; i<pacientes.length; i++){
     }
 
     if (pesoValido && alturaValida){
-        var imc = peso/(altura*altura);
-        tdImc.textContent = imc.toFixed(2); //além de acessar o text content tbm coloca
+        var imc = calculaImc(peso, altura);
+        tdImc.textContent = imc; //além de acessar o text content tbm coloca
     }
     
 }
-var botaoAdicionar = document.querySelector("#adicionar-paciente");
 
-botaoAdicionar.addEventListener("click", function(){
-    event.preventDefault();//tira o padrão do evento
-    
-
-    var form = document.querySelector("#form-adiciona");
-
-    var nome = form.nome.value; 
-    var peso = form.peso.value; //acesaando através da prop name = "peso"
-    var altura = form.altura.value;
-    var gordura = form.gordura.value;
-
-    var pacienteTr= document.createElement("tr");
-    
-    var nomeTd = document.createElement("td");//cria as colunas
-    var pesoTd = document.createElement("td");
-    var alturaTd =document.createElement("td");
-    var gorduraTd =document.createElement("td");
-
-    nomeTd.textContent=nome;//add dados do inseridos no form nas colunas
-    pesoTd.textContent=peso;
-    alturaTd.textContent=altura;
-    gorduraTd.textContent=gordura;
-
-    pacienteTr.appendChild(nomeTd);//vai add coluna dos dados a linha dum paciente
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-
-    var tabela = document.querySelector("#tabela-pacientes");
-
-    tabela.appendChild(pacienteTr); //add o paciente a tabela
-
-
-});
-
+function calculaImc(peso, altura){
+    var imc =0;
+    imc = peso/(altura*altura);
+    return imc.toFixed(2);
+}
