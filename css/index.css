@@ -97,7 +97,7 @@ label{
 }
 
 button{
-	padding: .5em 2em;
+	padding: .5em .2em;
 	border: 0;
 	border-bottom: 3px solid;
 	font-size: 1.2em;
@@ -111,7 +111,8 @@ button{
     display: block;
     clear: both;
     margin: 10px 0px;
-	border-radius: 10%;
+	border-radius: 5%;
+	text-align: center;
 
 }
 
